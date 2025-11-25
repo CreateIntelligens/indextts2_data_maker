@@ -27,8 +27,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 ### 3. 複製並安裝專案
 ```bash
-git clone https://github.com/JarodMica/dataset-maker.git
-cd dataset-maker
+git clone https://github.com/CreateIntelligens/indextts2_data_maker.git
+cd indextts2_data_maker
 uv sync
 ```
 
@@ -175,7 +175,7 @@ uv run python convert_to_jsonl.py \
 
 ### 聯絡支援
 如果遇到問題，請檢查：
-- GitHub Issues: https://github.com/JarodMica/dataset-maker/issues
+- GitHub Issues: https://github.com/CreateIntelligens/indextts2_data_maker/issues
 - 確保使用最新版本的程式碼
 
 ## 授權

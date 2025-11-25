@@ -2,9 +2,9 @@
 Multi-purpose dataset maker for various TTS models.
 - Tortoise TTS/XTTS
 - StyleTTS 2 ~ [Webui](https://github.com/JarodMica/StyleTTS-WebUI)
-- Higgs Audio ~ [Base](https://github.com/JimmyMa99/train-higgs-audio) - [My fork](https://github.com/JarodMica/higgs-audio/tree/training)
-- VibeVoice ~ [Base](https://github.com/voicepowered-ai/VibeVoice-finetuning) - [My fork](https://github.com/JarodMica/VibeVoice-finetuning)
-- IndexTTS 2 ~ [My Trainer](https://github.com/JarodMica/index-tts/tree/training_v2)
+- Higgs Audio ~ [Base](https://github.com/JimmyMa99/train-higgs-audio) - [My fork](https://github.com/CreateIntelligens/higgs-audio/tree/training)
+- VibeVoice ~ [Base](https://github.com/voicepowered-ai/VibeVoice-finetuning) - [My fork](https://github.com/CreateIntelligens/VibeVoice-finetuning)
+- IndexTTS 2 ~ [My Trainer](https://github.com/CreateIntelligens/index-tts/tree/training_v2)
 
 ## What does it output?
 **Tortoise, StyleTTS2, XTTS** - Models like these take in a simple text file where audio:text pairs are sorted something like:
@@ -45,8 +45,8 @@ Dataset_name
 1. Make sure you have astral uv installed on your PC
 2. Run the following:
     ```bash
-    git clone https://github.com/JarodMica/dataset-maker.git
-    cd dataset-maker
+    git clone https://github.com/CreateIntelligens/indextts2_data_maker.git
+    cd indextts2_data_maker
     uv sync
     ```
 3. uv should handle the installation of all packages and versioning. Once it finishes running, launch the gradio with:
