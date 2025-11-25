@@ -1436,7 +1436,7 @@ def setup_gradio():
 
 def main():
     demo = setup_gradio()
-    demo.launch()
+    demo.launch(server_port=8860, server_name="0.0.0.0")
 
 if __name__ == "__main__":
     import os
