@@ -31,52 +31,51 @@ def convert_dataset(input_root: str, output_root: str):
 
     entries = []
 
-    # Traverse all subfolders
-    for drama_folder in input_path.iterdir():
-        if not drama_folder.is_dir():
+    # Traverse all files recursively
+    for file in input_path.rglob('*.wav'):
+        if not file.is_file():
             continue
-        print(f"Processing {drama_folder.name}...")
+            
+        # Find corresponding .normalized.txt
+        txt_file = file.with_suffix('.normalized.txt')
+        if not txt_file.exists():
+            # Try checking if there's a txt file with the same name but excluding extension logic might vary
+            # But per user description, it's .normalized.txt
+            print(f"Warning: No transcription file for {file}")
+            continue
 
-        for speaker_folder in drama_folder.iterdir():
-            if not speaker_folder.is_dir():
-                continue
+        # Read transcription
+        try:
+            with open(txt_file, 'r', encoding='utf-8') as f:
+                transcription = f.read().strip()
+        except Exception as e:
+            print(f"Error reading {txt_file}: {e}")
+            continue
 
-            # Files are directly in speaker_folder
-            for file in speaker_folder.iterdir():
-                if file.suffix.lower() == '.wav':
-                    # Find corresponding .normalized.txt
-                    txt_file = file.with_suffix('.normalized.txt')
-                    if not txt_file.exists():
-                        print(f"Warning: No transcription file for {file}")
-                        continue
+        # Copy wav file to wavs/ with a simple name
+        # Use the original filename but ensure uniqueness
+        new_wav_name = file.name
+        new_wav_path = wavs_dir / new_wav_name
 
-                    # Read transcription
-                    try:
-                        with open(txt_file, 'r', encoding='utf-8') as f:
-                            transcription = f.read().strip()
-                    except Exception as e:
-                        print(f"Error reading {txt_file}: {e}")
-                        continue
+        # Handle potential name conflicts
+        counter = 1
+        while new_wav_path.exists():
+            stem = file.stem
+            suffix = file.suffix
+            new_wav_name = f"{stem}_{counter}{suffix}"
+            new_wav_path = wavs_dir / new_wav_name
+            counter += 1
 
-                    # Copy wav file to wavs/ with a simple name
-                    # Use the original filename but ensure uniqueness
-                    new_wav_name = file.name
-                    new_wav_path = wavs_dir / new_wav_name
+        shutil.copy2(file, new_wav_path)
 
-                    # Handle potential name conflicts
-                    counter = 1
-                    while new_wav_path.exists():
-                        stem = file.stem
-                        suffix = file.suffix
-                        new_wav_name = f"{stem}_{counter}{suffix}"
-                        new_wav_path = wavs_dir / new_wav_name
-                        counter += 1
+        # Add entry
+        relative_path = f"wavs/{new_wav_name}"
+        entries.append(f"{relative_path} | {transcription}")
 
-                    shutil.copy2(file, new_wav_path)
-
-                    # Add entry
-                    relative_path = f"wavs/{new_wav_name}"
-                    entries.append(f"{relative_path} | {transcription}")
+        if len(entries) % 100 == 0:
+            print(f"Processed {len(entries)} files...", end='\r')
+    
+    print() # Newline after progress
 
     # Write train.txt
     with open(train_txt_path, 'w', encoding='utf-8') as f:
