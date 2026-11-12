@@ -7,7 +7,7 @@ requires-python = ">=3.10"
 dependencies = [
     "audioread>=3.0.1",
     "beartype>=0.22.2",
-    "datasets==3.6.0",
+    "datasets==5.2.0",
     "demucs>=4.0.1",
     "gradio-utils",
     "librosa>=0.11.0",
@@ -29,7 +29,7 @@ dependencies = [
     "starlette==0.38.2",
     "torch>=2.8.0",
     "torchcodec==0.8",
-    "urllib3==2.3",
+    "urllib3==2.8.0",
     "whisperx>=3.3.4",
 ]
 
